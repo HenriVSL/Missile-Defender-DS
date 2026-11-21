@@ -1,0 +1,23 @@
+# Smoke test: python3 ../tools/ndsemu.py missiledef.nds -o shots -s smoke_test.txt
+# g_debug: magic frame state wave score high cities ammo incoming abms explosions
+#          kills lowestX lowestY fired fatOK demo cpuLines cpuLinesMax
+wait 90
+shot title
+touch 128 100
+log tap: start game
+wait 420
+peekw g_debug 14
+touch 177 58
+log tap: intercept the first warhead on the bottom screen (expect kills=1, score=25)
+wait 40
+shot intercept
+peekw g_debug 19
+press START
+wait 10
+shot paused
+log paused: frame counter keeps going, game state 4
+peekw g_debug 4
+touch 128 100
+wait 600
+shot later
+peekw g_debug 19
